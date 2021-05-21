@@ -24,10 +24,27 @@ public class Stand extends BaseObject{
     }
 
     public void move(){
+/* а) move - см. move в BaseObject
+    Движение доски осуществляется горизонтально, поэтому мы меняем только координату х.
+            Подумай, как координата х зависит от направления (direction) и скорости (speed). Реализуй зависимость.
+*/        x += speed*direction;
 
     };
 
     public void draw(Canvas canvas){
-
     }
+
+    public void moveLeft(){
+        //задает постоянное движение "подставки" влево
+        direction = -1;
+    }
+
+    public void moveRight(){
+        //задает постоянное движение "подставки" вправо
+        direction = 1;
+    }
+
+
+
+
 }
