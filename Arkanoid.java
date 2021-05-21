@@ -55,7 +55,18 @@ public class Arkanoid {
     }
 
     public void move(){
+        ball.move();
+        stand.move();
+    }
 
+    public void draw(Canvas canvas){
+        //вызывающий методы draw у шарика, подставки и всех кирпичей.
+        ball.draw(canvas);
+        stand.draw(canvas);
+        for (Brick b:bricks
+             ) {
+            b.draw(canvas);
+        }
     }
 
     public Arkanoid(int width, int height){
