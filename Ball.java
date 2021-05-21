@@ -61,10 +61,19 @@ public class Ball extends BaseObject {
     }
 
     public void move(){
+        if(!isFrozen){
+            super.setX(x+dx);
+            super.setY(y+dy);
+        }
+
 
     };
 
     public void draw(Canvas canvas){
+        canvas.setPoint(super.getX(), super.getY(), 'O');
+    }
 
+    public void start(){
+        isFrozen = false;
     }
 }
