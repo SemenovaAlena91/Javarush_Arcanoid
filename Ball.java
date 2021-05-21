@@ -21,6 +21,13 @@ public class Ball extends BaseObject {
     private double dy;
     private boolean isFrozen = true;
 
+    public Ball(double x, double y, double speed, double direction) {
+        super(x, y, 1);
+        this.direction = direction;
+        this.speed = speed;
+
+    }
+
     public double getSpeed(){
         return speed;
     }
@@ -53,20 +60,11 @@ public class Ball extends BaseObject {
         this.dy = dy;
     }
 
-    public Ball(double x, double y, double speed, double direction) {
-        super(x, y, 1);
-        this.direction = direction;
-        this.speed = speed;
-
-    }
-
     public void move(){
         if(!isFrozen){
             super.setX(x+dx);
             super.setY(y+dy);
         }
-
-
     };
 
     public void draw(Canvas canvas){
@@ -75,5 +73,16 @@ public class Ball extends BaseObject {
 
     public void start(){
         isFrozen = false;
+    }
+
+    public void setDirection(double direction){
+        this.direction = direction;
+        double angle = Math.toRadians(direction);
+        dx = Math.cos(angle) * speed;
+        dy = -Math.sin(angle) * speed;
+    }
+
+    public void checkRebound(int minx, int maxx, int miny, int maxy){
+
     }
 }
