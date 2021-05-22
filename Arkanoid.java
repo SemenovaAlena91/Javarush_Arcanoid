@@ -1,5 +1,6 @@
 package com.javarush.task.task24.task2413;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Arkanoid {
@@ -9,6 +10,7 @@ public class Arkanoid {
     private List<Brick> bricks;
     private Stand stand;
     static Arkanoid game;
+    private boolean isGameOver;
 
     public int getWidth(){
         return width;
@@ -68,6 +70,36 @@ public class Arkanoid {
             b.draw(canvas);
         }
     }
+
+    public void checkBricksBump(){
+
+        for (Brick brick : new ArrayList<Brick>(bricks)) {
+            if (ball.isIntersec(brick)) {
+                double angle = Math.random() * 360;
+                ball.setDirection(angle);
+
+                bricks.remove(brick);
+            }
+        }
+    }
+
+    public void checkStandBump(){
+        //ударился ли шарик о подставку
+        if(ball.isIntersec(stand)){
+            //шарик отлетает в случайным направлении вверх:
+            double angle = 90 + 20 * (Math.random() - 0.5);
+            ball.setDirection(angle);
+        }
+    }
+
+    public void checkEndGame(){
+        //Если координата y шарика больше чем высота поля игры (height), значит шарик улетел вниз за границу экрана.
+        //В этом случае надо переменную isGameOver установить в true.
+        if(ball.y > height){
+            isGameOver = true;
+        }
+    }
+
 
     public Arkanoid(int width, int height){
         this.width = width;
