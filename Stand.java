@@ -1,14 +1,49 @@
 package com.javarush.task.task24.task2413;
 
-//подставка, от которой отскакивает шарик
-public class Stand extends BaseObject{
-    private double speed; //скорость шарика
-    private double direction; //направление движения по оси x: 1 - вправо, -1 - влево, 0 - начальное значение, стоим на месте
+/**
+ * Подставка, с помощью которой отражаем мячик.
+ */
+public class Stand extends BaseObject {
+    //картинка для отрисовки
+    private static int[][] matrix = {
+            {1, 1, 1, 1, 1},
+            {1, 0, 0, 0, 1},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+    };
+
+    //скорость
+    private double speed = 1;
+    //направление (-1 влево, +1 вправо)
+    private double direction = 0;
 
     public Stand(double x, double y) {
         super(x, y, 3);
-        speed = 1;
-        direction = 0;
+    }
+
+    /**
+     * Метод передвигает подставку в соответствии с текущим значением direction.
+     */
+    void move() {
+        double dx = speed * direction;
+        x = x + dx;
+
+        checkBorders(radius, Arkanoid.game.getWidth() - radius + 1, 1, Arkanoid.game.getHeight() + 1);
+    }
+
+    /**
+     * direction устанавливается равным -1
+     */
+    void moveLeft() {
+        direction = -1;
+    }
+
+    /**
+     * direction устанавливается равным +1
+     */
+    void moveRight() {
+        direction = 1;
     }
 
     public double getSpeed() {
@@ -19,32 +54,11 @@ public class Stand extends BaseObject{
         return direction;
     }
 
-    public Stand(double x, double y, double radius){
-        super(x,y,radius);
+    /**
+     * Отрисовываем себя на холсте
+     */
+    @Override
+    void draw(Canvas canvas) {
+        canvas.drawMatrix(x - radius + 1, y, matrix, 'M');
     }
-
-    public void move(){
-/* а) move - см. move в BaseObject
-    Движение доски осуществляется горизонтально, поэтому мы меняем только координату х.
-            Подумай, как координата х зависит от направления (direction) и скорости (speed). Реализуй зависимость.
-*/        x += speed*direction;
-
-    };
-
-    public void draw(Canvas canvas){
-    }
-
-    public void moveLeft(){
-        //задает постоянное движение "подставки" влево
-        direction = -1;
-    }
-
-    public void moveRight(){
-        //задает постоянное движение "подставки" вправо
-        direction = 1;
-    }
-
-
-
-
 }
